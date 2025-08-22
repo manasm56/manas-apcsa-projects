@@ -11,15 +11,79 @@ public class Diamond implements Directions{
         World.setSize(20,20);
         World.setDelay(1);
 
+        Robot r = new Robot(5,10,East,90);
 
-        // The line below creates a Robot that we will refer to as rob
-        // Find out what the numbers and direction do!
-        // Put rob in a better location for your initials.
+        for (int i = 0; i < 6; i++ ) {
+            r.turnLeft();
+            r.move();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            r.move();
+            r.putBeeper();
+
+
+        }
+        r.turnLeft();
+        r.move();
+        r.turnLeft();
+        r.move();
+        r.putBeeper();
+
+        for (int t = 0; t < 4; t++ ) {
+            
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            r.move();
+            r.turnLeft();
+            r.move();
+            r.putBeeper();
+
+
+        }
+
+        for (int z = 0; z < 5; z++ ) {
+            
+            r.turnLeft();
+            r.move();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            r.move();
+            r.putBeeper();
+
+
+        }
+
+        r.turnLeft();
+        r.move();
+        r.turnLeft();
+        r.move();
+        r.putBeeper();
+
+         for (int y = 0; y < 4; y++ ) {
+            
+            
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            r.move();
+            r.turnLeft();
+            r.move();
+            r.putBeeper();
+
+
+        }
+        
+
+
+
+
+        /* 
         Robot rob = new Robot(5,10,East,90);
 
-        // Want a second robot?  No prob.  They are cheap :)
-        //Robot dude = new Robot(7,5,West,9);
-        // examples of commands you can invoke on a Robot
+       
         rob.move();
         rob.turnLeft();
         rob.move();
@@ -123,7 +187,9 @@ public class Diamond implements Directions{
         rob.putBeeper();
         rob.move();
         rob.move();
-        rob.move();
+        rob.move(); 
+        */
+
 
         
 
