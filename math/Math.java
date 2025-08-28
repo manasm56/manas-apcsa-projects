@@ -29,7 +29,7 @@ class Math {
     System.out.println(" multiples of 10 from 1000-1:");
 
     for(int z=1000; z >= 0; z--){
-      if (z % 10 <=0) {
+      if (z % 10 ==0) {
         System.out.print(z +"-" );
       }
     }
