@@ -6,7 +6,33 @@ class Math {
 
     //Use the // to create single line comments to either add info or to take out code for debugging
 
-    System.out.println("Hello world!");
+    
+      System.out.println(" odd numbers in between 1 & 100:");
+    for (int i = 1; i <= 100; i++) {
+            
+            if (i % 2 != 0) {
+                System.out.print(i+" ");
+            }
+        } 
+        System.out.println(100 );
+        System.out.println();
+      
+      System.out.println(" Multiples of 3 in between 1 & 100:");
+    for(int f=1; f <= 100; f++){
+      if (f % 3 <=0) {
+        System.out.print(f +" " );
+      }
+    }
+    System.out.println();
+    System.out.println();
+
+    System.out.println(" multiples of 10 from 1000-1:");
+
+    for(int z=1000; z >= 0; z--){
+      if (z % 10 <=0) {
+        System.out.print(z +" - " );
+      }
+    }
 
     //We will be using System.out.println and System.out.print throughout the year. Try using both below to see what the difference is!
 
