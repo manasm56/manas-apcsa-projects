@@ -8,15 +8,28 @@ public class Roomba implements Directions {
 	public static void main(String[] args) {
 		// LEAVE THIS ALONE!!!!!!
 		String worldName = "robot/basicRoom.wld";
+		Robot Roomba = new Robot(10,7,East,90);
+		World.setDelay(90);
 
 		Roomba cleaner = new Roomba();
 		int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
 		System.out.println("Roomba cleaned up a total of " + totalBeepers + " beepers.");
+		Roomba.turnLeft();
+		Roomba.turnLeft();
+		Roomba.turnLeft();
+		Roomba.move();
+		for (int a=0; a<=5; a++){
+			Roomba.pickBeeper();
+		}
+		Roomba.move();
+		Roomba.move();
+
+
 
 	}
 
 	// declared here so it is visible in all the methods!
-	private Robot roomba;
+	
 
 	// You will need to add many variables!!
 
@@ -37,8 +50,7 @@ public class Roomba implements Directions {
 
 		// the line below causes a null pointer exception
 		// what is that and why are we getting it?
-		roomba.move();
-
+		
 
 		int totalBeepers = 0; // Need to move this somewhere else.
         // This method should return the total number of beepers cleaned up.

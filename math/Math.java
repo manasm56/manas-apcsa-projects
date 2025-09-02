@@ -28,10 +28,10 @@ class Math {
 
     System.out.println(" multiples of 10 from 1000-1:");
 
-    for(int z=1000; z >= 0; z--){
-      if (z % 10 ==0) {
+    for(int z=1000; z >= 0; z-=10){
+      
         System.out.print(z +"-" );
-      }
+      
     }
 
     //We will be using System.out.println and System.out.print throughout the year. Try using both below to see what the difference is!
