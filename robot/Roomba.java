@@ -4,56 +4,39 @@ import kareltherobot.*;
 
 public class Roomba implements Directions {
 
-	// Main method to make this self-contained
-	public static void main(String[] args) {
-		// LEAVE THIS ALONE!!!!!!
-		String worldName = "robot/basicRoom.wld";
-		Robot Roomba = new Robot(10,7,East,90);
-		World.setDelay(90);
+    // Main method to make this self-contained
+    public static void main(String[] args) {
+        // LEAVE THIS ALONE!!!!!!
+        String worldName = "robot/basicRoom.wld";
+        World.setDelay(90);
 
-		Roomba cleaner = new Roomba();
-		int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
-		System.out.println("Roomba cleaned up a total of " + totalBeepers + " beepers.");
-		Roomba.turnLeft();
-		Roomba.turnLeft();
-		Roomba.turnLeft();
-		Roomba.move();
-		for (int a=0; a<=5; a++){
-			Roomba.pickBeeper();
-		}
-		Roomba.move();
-		Roomba.move();
+        Roomba cleaner = new Roomba();
+        int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
+        System.out.println("Roomba cleaned up a total of " + totalBeepers + " beepers.");
+        
 
+    }
 
+    public int cleanRoom(String worldName, int startX, int startY) {
+        // Initialize the Robot at the starting position
+           Robot roomba = new Robot(startX, startY, East, 0);
+        World.readWorld(worldName);
+        World.setVisible(true);
 
-	}
+        int totalBeepers = 0;
 
-	// declared here so it is visible in all the methods!
-	
-
-	// You will need to add many variables!!
+        // Navigate and clean the 5x5 area
 
 
-	public int cleanRoom(String worldName, int startX, int startY) {
+        while(roomba.nextToABeeper()){
+            roomba.pickBeeper();
+        }
+        for(int i=1;i<=7;i++){
+            roomba.move();
+        }
+            
+        
 
-		// A new Robot should be constructed and assigned to the global (instance) variable named roomba that is declared above.
-        // Make sure it starts at startX and startY location.
-
-		World.readWorld(worldName);
-		World.setVisible(true);
-
-
-		/** This section will have all the logic that takes the Robot to every location
-		 * and cleans up all piles of beepers. Think about ways you can break this
-		 * large, complex task into smaller, easier to solve problems.
-		 */
-
-		// the line below causes a null pointer exception
-		// what is that and why are we getting it?
-		
-
-		int totalBeepers = 0; // Need to move this somewhere else.
-        // This method should return the total number of beepers cleaned up.
-		return totalBeepers;
-	}
+        return totalBeepers; 
+    }
 }
