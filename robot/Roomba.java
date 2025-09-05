@@ -8,35 +8,52 @@ public class Roomba implements Directions {
     public static void main(String[] args) {
         // LEAVE THIS ALONE!!!!!!
         String worldName = "robot/basicRoom.wld";
-        World.setDelay(90);
+        World.setDelay(20);
 
         Roomba cleaner = new Roomba();
         int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
         System.out.println("Roomba cleaned up a total of " + totalBeepers + " beepers.");
-        
 
     }
 
     public int cleanRoom(String worldName, int startX, int startY) {
         // Initialize the Robot at the starting position
-           Robot roomba = new Robot(startX, startY, East, 0);
+        Robot roomba = new Robot(startX, startY, East, 0);
         World.readWorld(worldName);
         World.setVisible(true);
 
         int totalBeepers = 0;
 
+        while (roomba.frontIsClear()) {
+            roomba.move();
+            while (roomba.nextToABeeper()) {
+                roomba.pickBeeper();
+            }
+        }
+        while (!roomba.frontIsClear() && roomba.facingEast()) {
+            roomba.turnLeft();
+            roomba.move();
+            roomba.turnLeft();
+        }
+        while (roomba.frontIsClear()) {
+            roomba.move();
+            while (roomba.nextToABeeper()) {
+                roomba.pickBeeper();
+            }
+        }
+
         // Navigate and clean the 5x5 area
 
+        /*
+         * while(roomba.nextToABeeper()){
+         * roomba.pickBeeper();
+         * }
+         * for(int i=1;i<=7;i++){
+         * roomba.move();
+         * }
+         * 
+         */
 
-        while(roomba.nextToABeeper()){
-            roomba.pickBeeper();
-        }
-        for(int i=1;i<=7;i++){
-            roomba.move();
-        }
-            
-        
-
-        return totalBeepers; 
+        return totalBeepers;
     }
 }
