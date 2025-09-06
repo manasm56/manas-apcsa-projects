@@ -8,7 +8,7 @@ public class Roomba implements Directions {
     public static void main(String[] args) {
         // LEAVE THIS ALONE!!!!!!
         String worldName = "robot/basicRoom.wld";
-        World.setDelay(20);
+        World.setDelay(10);
 
         Roomba cleaner = new Roomba();
         int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
@@ -23,7 +23,7 @@ public class Roomba implements Directions {
         World.setVisible(true);
 
         int totalBeepers = 0;
-
+        for (int a=0; a<=4;a++){
         while (roomba.frontIsClear()) {
             roomba.move();
             while (roomba.nextToABeeper()) {
@@ -35,13 +35,16 @@ public class Roomba implements Directions {
             roomba.move();
             roomba.turnLeft();
         }
-        while (roomba.frontIsClear()) {
-            roomba.move();
-            while (roomba.nextToABeeper()) {
-                roomba.pickBeeper();
-            }
+        while (!roomba.frontIsClear() && roomba.facingWest()) {
+           roomba.turnLeft();
+           roomba.turnLeft();
+           roomba.turnLeft();
+           roomba.move();
+           roomba.turnLeft();
+           roomba.turnLeft();
+           roomba.turnLeft();
         }
-
+    }
         // Navigate and clean the 5x5 area
 
         /*
