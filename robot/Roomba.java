@@ -23,14 +23,24 @@ public class Roomba implements Directions {
         World.setVisible(true);
 
         int totalBeepers = 0;
-        for (int a=0; a<=4;a++){
+        int maxBeepers = 0;
+        int avenueNo=0,streetNo=0;
+       // for (int a=0; a<=4;a++){
         while (roomba.frontIsClear()) {
             roomba.move();
+            
             while (roomba.nextToABeeper()) {
                 roomba.pickBeeper();
+                totalBeepers++;
+                if(maxBeepers<totalBeepers){
+                    maxBeepers=totalBeepers;
+                    totalBeepers=0;
+                    
+                }
+                
+
             }
-        }
-        while (!roomba.frontIsClear() && roomba.facingEast()) {
+            while (!roomba.frontIsClear() && roomba.facingEast()) {
             roomba.turnLeft();
             roomba.move();
             roomba.turnLeft();
@@ -44,7 +54,10 @@ public class Roomba implements Directions {
            roomba.turnLeft();
            roomba.turnLeft();
         }
-    }
+        }
+        
+        
+    //}
         // Navigate and clean the 5x5 area
 
         /*
@@ -58,5 +71,6 @@ public class Roomba implements Directions {
          */
 
         return totalBeepers;
+        
     }
 }
