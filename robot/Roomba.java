@@ -25,24 +25,23 @@ public class Roomba implements Directions {
         int totalBeepers = 0;
         int maxBeepers = 0;
         int avenueNo=0,streetNo=0;
+        int moves=0;
        // for (int a=0; a<=4;a++){
         while (roomba.frontIsClear()) {
             roomba.move();
+            moves++;
             
             while (roomba.nextToABeeper()) {
                 roomba.pickBeeper();
                 totalBeepers++;
-                if(maxBeepers<totalBeepers){
-                    maxBeepers=totalBeepers;
-                    totalBeepers=0;
-                    
-                }
+                
                 
 
             }
             while (!roomba.frontIsClear() && roomba.facingEast()) {
             roomba.turnLeft();
             roomba.move();
+            moves++;
             roomba.turnLeft();
         }
         while (!roomba.frontIsClear() && roomba.facingWest()) {
@@ -50,6 +49,7 @@ public class Roomba implements Directions {
            roomba.turnLeft();
            roomba.turnLeft();
            roomba.move();
+           moves++;
            roomba.turnLeft();
            roomba.turnLeft();
            roomba.turnLeft();
@@ -69,6 +69,7 @@ public class Roomba implements Directions {
          * }
          * 
          */
+        System.out.println("number of moves the roomba did is " + moves);
 
         return totalBeepers;
         
