@@ -8,7 +8,7 @@ public class Roomba implements Directions {
     public static void main(String[] args) {
         // LEAVE THIS ALONE!!!!!!
         String worldName = "robot/basicRoom.wld";
-        World.setDelay(10);
+        World.setDelay(5);
 
         Roomba cleaner = new Roomba();
         int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
@@ -23,26 +23,56 @@ public class Roomba implements Directions {
         World.setVisible(true);
 
         int totalBeepers = 0;
-        int maxBeepers = 0;
-        int avenueNo=0,streetNo=0;
+        
+          
+        int area=0;
         int moves=0;
-       // for (int a=0; a<=4;a++){
+        
+        int largestPile=0;
+        int pileCount=0;
+        int positionx=0;
+        int positiony=0;
+        // simple position counters
+        boolean needClean=true;
+
+       while(true){
+        
         while (roomba.frontIsClear()) {
             roomba.move();
             moves++;
+            area++;
+            
+            pileCount=0;
+            
             
             while (roomba.nextToABeeper()) {
                 roomba.pickBeeper();
                 totalBeepers++;
+                pileCount++;
+                if(pileCount > largestPile ){
+                    largestPile = pileCount;
+                   positionx=roomba.street();
+                   positiony=roomba.avenue();
+                }
+               
+
                 
+              
+
+
                 
 
             }
+            
+                
+            
             while (!roomba.frontIsClear() && roomba.facingEast()) {
             roomba.turnLeft();
             roomba.move();
             moves++;
+            area++;
             roomba.turnLeft();
+            
         }
         while (!roomba.frontIsClear() && roomba.facingWest()) {
            roomba.turnLeft();
@@ -50,9 +80,15 @@ public class Roomba implements Directions {
            roomba.turnLeft();
            roomba.move();
            moves++;
+           area++;
            roomba.turnLeft();
            roomba.turnLeft();
            roomba.turnLeft();
+           while (!roomba.frontIsClear() && roomba.facingNorth()){
+            roomba.turnOff();
+
+           }
+           
         }
         }
         
@@ -70,8 +106,16 @@ public class Roomba implements Directions {
          * 
          */
         System.out.println("number of moves the roomba did is " + moves);
+        System.out.println("area of room is: " + area);
+        System.out.println("largest pile is: "+ largestPile);
+        System.out.println( "the coordinates of largest pile is:" + "(" + positionx + "," + positiony + ")" );
+        
+        
+
 
         return totalBeepers;
         
     }
+}
+
 }
