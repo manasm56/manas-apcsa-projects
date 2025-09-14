@@ -8,7 +8,7 @@ public class Roomba implements Directions {
     public static void main(String[] args) {
         // LEAVE THIS ALONE!!!!!!
         String worldName = "robot/basicRoom.wld";
-        World.setDelay(5);
+        World.setDelay(1);
 
         Roomba cleaner = new Roomba();
         int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
@@ -30,66 +30,74 @@ public class Roomba implements Directions {
         
         int largestPile=0;
         int pileCount=0;
+        int noOfBeepersInPile=0;
         int positionx=0;
         int positiony=0;
         // simple position counters
-        boolean needClean=true;
-
-       while(true){
+        boolean needToCleanMore = true;
         
-        while (roomba.frontIsClear()) {
+        while (needToCleanMore) {
             roomba.move();
             moves++;
             area++;
             
-            pileCount=0;
+            noOfBeepersInPile=0;
             
-            
+            boolean processedPile = false;
             while (roomba.nextToABeeper()) {
                 roomba.pickBeeper();
                 totalBeepers++;
-                pileCount++;
-                if(pileCount > largestPile ){
-                    largestPile = pileCount;
-                   positionx=roomba.street();
-                   positiony=roomba.avenue();
+                noOfBeepersInPile++;
+                if(noOfBeepersInPile > largestPile ){
+                    largestPile = noOfBeepersInPile;
+                    positionx=roomba.avenue();
+                    positiony=roomba.street();
                 }
-               
-
-                
-              
-
-
-                
-
+                processedPile = true;
             }
             
-                
-            
-            while (!roomba.frontIsClear() && roomba.facingEast()) {
-            roomba.turnLeft();
-            roomba.move();
-            moves++;
-            area++;
-            roomba.turnLeft();
-            
-        }
-        while (!roomba.frontIsClear() && roomba.facingWest()) {
-           roomba.turnLeft();
-           roomba.turnLeft();
-           roomba.turnLeft();
-           roomba.move();
-           moves++;
-           area++;
-           roomba.turnLeft();
-           roomba.turnLeft();
-           roomba.turnLeft();
-           while (!roomba.frontIsClear() && roomba.facingNorth()){
-            roomba.turnOff();
+            if(processedPile) {
+                pileCount++;
+            }
 
-           }
-           
-        }
+            while (!roomba.frontIsClear() && roomba.facingEast()) {
+                roomba.turnLeft();
+                area++;
+                moves++;
+
+
+                if(! roomba.frontIsClear()) {
+                    needToCleanMore = false;
+                    break;
+                }
+                roomba.move();
+                
+                roomba.turnLeft();    
+            }
+
+            while (!roomba.frontIsClear() && roomba.facingWest()) {
+                roomba.turnLeft();
+                roomba.turnLeft();
+                roomba.turnLeft();
+                area++;
+                moves++;
+
+                if(! roomba.frontIsClear()) {
+                    needToCleanMore = false;
+                    break;
+                }
+
+                roomba.move();
+                
+                roomba.turnLeft();
+                roomba.turnLeft();
+                roomba.turnLeft();
+                /***
+                while (!roomba.frontIsClear() && roomba.facingNorth()){
+                    roomba.turnOff();
+                } 
+                ***/
+            }
         }
         
         
@@ -105,17 +113,17 @@ public class Roomba implements Directions {
          * }
          * 
          */
-        System.out.println("number of moves the roomba did is " + moves);
-        System.out.println("area of room is: " + area);
-        System.out.println("largest pile is: "+ largestPile);
+        System.out.println("number of moves the roomba did is " + moves + " moves");
+        System.out.println("area of room is: " + area + " square units");
+        System.out.println("largest pile has: "+ largestPile + " beepers");
         System.out.println( "the coordinates of largest pile is:" + "(" + positionx + "," + positiony + ")" );
+        System.out.println("The number of piles is "+ pileCount + " piles" );
+        System.out.println("Percent dirty is " + ((double) pileCount * 100/area) + "%"  );
+        System.out.println("the average pile size is " + ((double)totalBeepers/pileCount));
         
-        
-
 
         return totalBeepers;
         
     }
-}
 
 }
