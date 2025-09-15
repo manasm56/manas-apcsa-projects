@@ -1,3 +1,4 @@
+
 package robot;
 
 import kareltherobot.*;
@@ -7,11 +8,11 @@ public class Roomba implements Directions {
     // Main method to make this self-contained
     public static void main(String[] args) {
         // LEAVE THIS ALONE!!!!!!
-        String worldName = "robot/basicRoom.wld";
-        World.setDelay(1);
+        String worldName = "robot/finalTestWorld2024.wld";
+        World.setDelay(0);
 
         Roomba cleaner = new Roomba();
-        int totalBeepers = cleaner.cleanRoom(worldName, 7, 6);
+        int totalBeepers = cleaner.cleanRoom(worldName, 26, 101);
         System.out.println("Roomba cleaned up a total of " + totalBeepers + " beepers.");
 
     }
@@ -37,11 +38,7 @@ public class Roomba implements Directions {
         boolean needToCleanMore = true;
         
         while (needToCleanMore) {
-            roomba.move();
-            moves++;
-            area++;
             
-            noOfBeepersInPile=0;
             
             boolean processedPile = false;
             while (roomba.nextToABeeper()) {
@@ -59,10 +56,16 @@ public class Roomba implements Directions {
             if(processedPile) {
                 pileCount++;
             }
+            roomba.move();
+            moves++;
+            area++;
+            
+            noOfBeepersInPile=0;
 
             while (!roomba.frontIsClear() && roomba.facingEast()) {
                 roomba.turnLeft();
                 area++;
+                 
                 moves++;
 
 
@@ -71,6 +74,7 @@ public class Roomba implements Directions {
                     break;
                 }
                 roomba.move();
+                
                 
                 roomba.turnLeft();    
             }
@@ -86,33 +90,17 @@ public class Roomba implements Directions {
                     needToCleanMore = false;
                     break;
                 }
-
+               
                 roomba.move();
+                 
                 
                 roomba.turnLeft();
                 roomba.turnLeft();
                 roomba.turnLeft();
-                /***
-                while (!roomba.frontIsClear() && roomba.facingNorth()){
-                    roomba.turnOff();
-                } 
-                ***/
             }
         }
         
         
-    //}
-        // Navigate and clean the 5x5 area
-
-        /*
-         * while(roomba.nextToABeeper()){
-         * roomba.pickBeeper();
-         * }
-         * for(int i=1;i<=7;i++){
-         * roomba.move();
-         * }
-         * 
-         */
         System.out.println("number of moves the roomba did is " + moves + " moves");
         System.out.println("area of room is: " + area + " square units");
         System.out.println("largest pile has: "+ largestPile + " beepers");
