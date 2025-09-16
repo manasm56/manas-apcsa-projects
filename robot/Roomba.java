@@ -14,15 +14,15 @@ public class Roomba implements Directions {
     }
 
     public int cleanRoom(String worldName, int startX, int startY) {
-        
+        // load world before creating robot
         World.readWorld(worldName);
         World.setVisible(true);
 
         Robot roomba = new Robot(startX, startY, East, 0);
 
         int totalBeepers = 0;
-        int area = 0;
-        int moves = 0;
+        int area = 0;            
+        int moves = 0;           
 
         int largestPile = 0;
         int pileCount = 0;
@@ -30,10 +30,10 @@ public class Roomba implements Directions {
         int positiony = 0;
 
         while (true) {
-           
+            // count this tile as visited
             area++;
 
-            
+            // pick up all beepers on the current square
             int pileHere = 0;
             while (roomba.nextToABeeper()) {
                 roomba.pickBeeper();
@@ -41,32 +41,32 @@ public class Roomba implements Directions {
                 pileHere++;
             }
 
-            if (pileHere > 0) {
+            if (pileHere > 0) { // checks if we can increase pile count 
                 pileCount++;
-                if (pileHere > largestPile) {
+                if (pileHere > largestPile) { //checks for largest pile 
                     largestPile = pileHere;
-                    positionx = roomba.avenue();
+                    positionx = roomba.avenue(); // gets x and y values 
                     positiony = roomba.street();
                 }
             }
 
-            
+            // if front is clear, step forward
             if (roomba.frontIsClear()) {
                 roomba.move();
-
+                
                 continue;
             }
 
-            
+            // front blocked: try to move to next row
             if (roomba.facingEast()) {
                 roomba.turnLeft();
                 if (roomba.frontIsClear()) {
                     roomba.move();
-
+                    
                     roomba.turnLeft();
-                    continue;
+                    
                 } else {
-                    break; 
+                    break; // finished
                 }
             } else if (roomba.facingWest()) {
                 roomba.turnLeft();
@@ -74,20 +74,20 @@ public class Roomba implements Directions {
                 roomba.turnLeft();
                 if (roomba.frontIsClear()) {
                     roomba.move();
-
+                    
                     roomba.turnLeft();
                     roomba.turnLeft();
                     roomba.turnLeft();
-                    continue;
+                    
                 } else {
-                    break;
+                    break; // finished
                 }
             } else {
-                break; 
+                break; // facing north or south and blocked
             }
         }
 
-        moves = area;
+        moves=area;
         System.out.println("number of moves the roomba did is " + moves + " moves");
         System.out.println("area of room is: " + area + " square units");
         System.out.println("largest pile has: " + largestPile + " beepers");
@@ -95,6 +95,7 @@ public class Roomba implements Directions {
         System.out.println("The number of piles is " + pileCount + " piles");
         System.out.println("Percent dirty is " + ((double) pileCount * 100 / area) + "%");
         System.out.println("the average pile size is " + ((double) totalBeepers / pileCount));
+        
 
         return totalBeepers;
     }
