@@ -19,34 +19,31 @@ public class PigLatinTranslator {
 }
 
     private static String translateWord(String input) {
-    System.out.println("  -> translateWord('" + input + "')");
     if (input.isEmpty()) return input;
 
-    // 1. split punctuation tail
-    int i = input.length();
-    while (i > 0 && !Character.isLetterOrDigit(input.charAt(i - 1))) i--;
-    String stem = input.substring(0, i);
-    String punct = input.substring(i);
+    // 1. punctuation tail
+    int cut = input.length();
+    while (cut > 0 && !Character.isLetterOrDigit(input.charAt(cut - 1))) cut--;
+    String core = input.substring(0, cut), tail = input.substring(cut);
 
-    // 2. remember original capital positions
-    boolean[] upper = new boolean[stem.length()];
-    for (int k = 0; k < stem.length(); k++) upper[k] = Character.isUpperCase(stem.charAt(k));
-    stem = stem.toLowerCase();
+    // 2. remember original cap positions
+    boolean[] up = new boolean[core.length()];
+    for (int i = 0; i < core.length(); i++) up[i] = Character.isUpperCase(core.charAt(i));
 
-    // 3. find first vowel
+    // 3. lower-case working copy
+    core = core.toLowerCase();
+
+    // 4. rotate to first vowel
     int v = 0;
-    while (v < stem.length() && !"aeiou".contains(stem.substring(v, v + 1))) v++;
+    while (v < core.length() && !"aeiou".contains(String.valueOf(core.charAt(v)))) v++;
+    String pig = (v == 0 ? core : core.substring(v) + core.substring(0, v)) + "ay";
 
-    // 4. build pig-latin stem
-    String pig = (v == 0 ? stem : stem.substring(v) + stem.substring(0, v)) + "ay";
-
-    // 5. restore original capital pattern
+    // 5. restore caps ONLY in positions that were originally capped
     StringBuilder out = new StringBuilder(pig);
-    for (int k = 0; k < upper.length && k < out.length(); k++) {
-        if (upper[k]) out.setCharAt(k, Character.toUpperCase(out.charAt(k)));
-    }
+    for (int i = 0; i < up.length && i < out.length(); i++)
+        if (up[i]) out.setCharAt(i, Character.toUpperCase(out.charAt(i)));
 
-    return out.toString() + punct;
+    return out.toString() + tail;
 }
 
     // Add additonal private methods here.
