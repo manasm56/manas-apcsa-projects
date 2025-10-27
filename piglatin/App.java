@@ -1,24 +1,22 @@
 package piglatin;
 
 public class App {
-    public static void main(String[] args) throws Exception {   // <- added throws
+    public static void main(String[] args) throws Exception {
 
-        // Run tests; comment out once they pass.
         int score = TestSuite.run();
         if (score > 4) {
             Book input = new Book();
+            input.readFromUrl("Pride and Prejudice",
+                 "https://www.gutenberg.org/cache/epub/1342/pg1342.txt");
 
-            // 1. load Romeo & Juliet from Project Gutenberg
-            input.readFromUrl("Romeo and Juliet",
-                 "https://gutenberg.pglaf.org/cache/epub/1513/pg1513.txt");
-
-            // 2. translate entire book
             Book output = PigLatinTranslator.translate(input);
-
-            // 3. save translated text
             output.writeToFile("pigLatinBook.txt");
 
-            // 4. (optional) show first few lines
+            // show where the file landed
+            System.out.println("File saved at: " +
+                 new java.io.File("pigLatinBook.txt").getAbsolutePath());
+
+            // peek at first 500 lines
             output.printlines(0, 500);
         }
     }
