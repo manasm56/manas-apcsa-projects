@@ -1,20 +1,16 @@
 package gol;
 
-import java.util.Arrays;
-
 public class GameOfLife implements Board {
-
     // Integers: 0 or 1 for alive or dead
     private int[][] board;
 
     public GameOfLife(int x, int y)
     {
         // Cnstruct a 2d array of the given x and y size.
-        int [][] board = new int[x][y];
-        this.board=board;
+        board = new int[x][y];
     }
 
-    // Set values  the board
+    // Set values the board
     public void set(int x, int y, int[][] data) {
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[0].length; j++) {
@@ -25,10 +21,10 @@ public class GameOfLife implements Board {
 
     // Run the simulation for a number of turns
     public void run(int turns) {
-        // call step the number of times requested 
+        // call step the number of times requested
         for (int i = 0; i < turns; i++) {
-        step();
-    }
+            step();
+        }
     }
 
     // Step the simulation forward one turn.
@@ -36,13 +32,31 @@ public class GameOfLife implements Board {
     {
         print();
         // Update the game board, store a 1 if the cell is alive and a 0 otherwise.
-    }
+        int[][] next = new int[board.length][board[0].length];
 
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                int n = countNeighbors(i, j);
+                if (board[i][j] == 1) {
+                    next[i][j] = (n == 2 || n == 3) ? 1 : 0;
+                } else {
+                    next[i][j] = (n == 3) ? 1 : 0;
+                }
+            }
+        }
+        board = next;
+    }
 
     public int countNeighbors(int x, int y) {
         int count = 0;
         // count the number of neighbors the cell has
         // use the get(x,y) method to read any board state you need.
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) continue;
+                if (get(x + dx, y + dy) == 1) count++;
+            }
+        }
         return count;
     }
 
@@ -68,18 +82,17 @@ public class GameOfLife implements Board {
         for (int y = 0; y < board[0].length; y++) {
             System.out.print(y%10 + " ");
         }
-
         for (int x = 0; x < board.length; x++) {
             System.out.print("\n" + x%10);
             for (int y=0; y<board[x].length; y++)
             {
                 if (board[x][y] == 1)
                 {
-                    System.out.print("⬛");
+                    System.out.print("black square");
                 }
                 else
                 {
-                    System.out.print("⬜");
+                    System.out.print("white square");
                 }
             }
         }
