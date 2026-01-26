@@ -4,7 +4,7 @@ public class BubbleSort implements Sorter {
 
     public void sort(int[] input)
     {
-        // Loop for all elements in the array
+        // Loop for all elents in the array
         for (int outer = 0; outer < input.length - 1; outer++) {
             // Inner loop is one shorter for every outer loop.
             // Each loop ensures that the largest item moves to the end.
