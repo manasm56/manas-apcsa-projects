@@ -17,7 +17,7 @@ public class Main {
 
         // Increase the loop count to get better results once it works.
         // TestSuite.run(testInput, 10000);
-        TestSuite.run(testInput, 1);
+        TestSuite.run(testInput, 800);
     }
 
     public static int[] randomArray(int length)
