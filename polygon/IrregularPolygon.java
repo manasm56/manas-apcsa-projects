@@ -63,7 +63,7 @@ public class IrregularPolygon {
 
             myDrawingTool.move(first.x, first.y);
         } catch (java.awt.HeadlessException e) {
-            System.out.println("Exception: No graphics support available.");
+            System.out.println("exception: No graphics support available.");
         }
     }
 
