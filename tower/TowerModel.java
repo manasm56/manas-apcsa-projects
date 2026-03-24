@@ -12,7 +12,7 @@ public class TowerModel {
     private int printCounter = 0;
     private int moveCounter = 0;
 
-    /* This class implements a model of a tower of Hanoi game.
+    /* This class implements a model of a tower of Hanoi game
 
         |    |    |
         =    |    |
