@@ -50,6 +50,8 @@ public class TowerModel {
     {
         System.out.println("Move #" + ++moveCounter + " from " + source + " to " + destination);
         // TODO!!
+        int disk = towers[source].pop();
+        towers[destination].push(disk);
     }
 
     // Helper method to nicely print the current model state.
